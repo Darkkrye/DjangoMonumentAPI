@@ -5,10 +5,19 @@ class User(models.Model):
     first_name = models.CharField(max_length=200, blank=False)
     last_name = models.CharField(max_length=200, blank=False)
 
+# La meteo
+class Weather(models.Model):
+    humidity = models.IntegerField(null=True)
+    temp_min = models.CharField(max_length=200, blank=True)
+    temp_max = models.CharField(max_length=200, blank=True)
+    visibility = models.IntegerField(null=True)
+    wind_speed = models.CharField(max_length=200, blank=True)
+
 # Ville
 class City(models.Model):
     zip_code = models.IntegerField(blank=False)
     city_name = models.CharField(max_length=200, blank=False)
+    weather = models.OneToOneField(Weather, related_name='city', null=True)
 
 # Adress
 class Address(models.Model):
@@ -27,7 +36,6 @@ class Note(models.Model):
     note = models.TextField(blank=False)
     user = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL) #si on détruit l'utilisateur, set la FK user à null
     monument = models.ForeignKey(Monument, blank=False, null=True, on_delete=models.CASCADE) # si on détruit le monument on supprime la note
-
 
 
 
