@@ -13,7 +13,7 @@ class City(models.Model):
 # Adress
 class Address(models.Model):
     address_1 = models.CharField(max_length=200, blank=False)
-    address_2 = models.CharField(max_length=200)
+    address_2 = models.CharField(max_length=200, blank=True, null=True)
     city = models.ForeignKey(City, blank=True, null=True, on_delete=models.CASCADE) # si on supprime une City, on détruit l'adresse
 
 # Le monument

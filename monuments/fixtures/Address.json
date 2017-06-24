@@ -1,0 +1,32 @@
+[
+  {
+    "model": "monuments.address",
+    "pk": 1,
+    "fields":
+    {
+      "address_1": "Place du Général de Gaulle",
+      "address_2": "",
+      "city": 1
+    }
+  },
+  {
+    "model": "monuments.address",
+    "pk": 2,
+    "fields":
+    {
+      "address_1": "Place du parvis de Notre-Dame",
+      "address_2": "",
+      "city": 2
+    }
+  },
+  {
+    "model": "monuments.address",
+    "pk": 3,
+    "fields":
+    {
+      "address_1": "2 Boulevard du Palais",
+      "address_2": "",
+      "city": 3
+    }
+  }
+]

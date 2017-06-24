@@ -1,0 +1,29 @@
+[
+  {
+    "model": "monuments.city",
+    "pk": 1,
+    "fields":
+    {
+      "zip_code": 75008,
+      "city_name": "Paris 8e"
+    }
+  },
+  {
+    "model": "monuments.city",
+    "pk": 2,
+    "fields":
+    {
+      "zip_code": 75004,
+      "city_name": "Paris 4e"
+    }
+  },
+  {
+    "model": "monuments.city",
+    "pk": 3,
+    "fields":
+    {
+      "zip_code": 75001,
+      "city_name": "Paris 1er"
+    }
+  }
+]

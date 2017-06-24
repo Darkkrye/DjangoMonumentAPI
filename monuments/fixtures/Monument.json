@@ -1,0 +1,25 @@
+[
+  {
+    "model": "monuments.monument",
+    "pk": 1, "fields":
+    {
+      "name": "Arc de Triomphe",
+      "address": 1
+    }
+  },
+  {
+    "model": "monuments.monument",
+    "pk": 2, "fields": {
+      "name": "Cathédrale Notre-Dame",
+      "address": 2
+    }
+  },
+  {
+    "model": "monuments.monument",
+    "pk": 3, "fields":
+    {
+      "name": "Conciergerie",
+      "address": 3
+    }
+  }
+]
