@@ -1,0 +1,30 @@
+[
+  {
+	"model": "monuments.note",
+    "pk": 1,
+    "fields":
+    {
+      "note": "Un bel endroit !",
+      "user": 1,
+      "monument": 1
+    }
+  },
+  {
+    "model": "monuments.note",
+    "pk": 2,
+    "fields": {
+      "note": "Winter will not come here",
+      "user": 8,
+      "monument": 1
+    }
+  },
+  {
+    "model": "monuments.note",
+    "pk": 3,
+    "fields": {
+      "note": "What a beautiful wall to climb !",
+      "user": 5,
+      "monument": 1
+    }
+  }
+]
