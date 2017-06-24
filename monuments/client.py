@@ -1,5 +1,5 @@
 import requests
-from models import Weather
+from models import Weather,City
 
 
 def getWeatherByCity(cityName,cityPk):
@@ -13,7 +13,7 @@ def getWeatherByCity(cityName,cityPk):
     weather.temp_max = data["main"]["temp_max"]
     weather.visibility = data["visibility"]
     weather.wind_speed = data["wind"]["speed"]
-    print(data)
-
-
-getWeatherByCity("London",2)
+    weather.save()
+    city = City.objects.get(pk=cityPk)
+    city.weather = weather
+    city.save()
