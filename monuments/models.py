@@ -4,11 +4,15 @@ from django.db import models
 class User(models.Model):
     first_name = models.CharField(max_length=200, blank=False)
     last_name = models.CharField(max_length=200, blank=False)
+    def __str__(self):
+        return self.first_name + " " + self.last_name
+
 
 # Ville
 class City(models.Model):
     zip_code = models.IntegerField(blank=False)
     city_name = models.CharField(max_length=200, blank=False)
+
 
 # Adress
 class Address(models.Model):
@@ -16,10 +20,12 @@ class Address(models.Model):
     address_2 = models.CharField(max_length=200, blank=True, null=True)
     city = models.ForeignKey(City, blank=True, null=True, on_delete=models.CASCADE) # si on supprime une City, on détruit l'adresse
 
+
 # Le monument
 class Monument(models.Model):
     name = models.CharField(max_length=200, blank=False)
     address = models.OneToOneField(Address, blank=True, null=True)  # si on supprime une adresse on détruit le monument
+
 
 # Note sur le monument
 # Note est la table intermédiaire pour la relation Many to Many entre les utilisateurs et les monuments
