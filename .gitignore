@@ -1,5 +1,6 @@
 # Ignoring everything inside storage directory
 .idea/*
+*.pyc
 
 # Mac Only
 .DS_Store
