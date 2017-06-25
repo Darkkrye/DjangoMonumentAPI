@@ -1,12 +1,11 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-# Utilisateur
-class User(models.Model):
-    first_name = models.CharField(max_length=200, blank=False)
-    last_name = models.CharField(max_length=200, blank=False)
-    def __str__(self):
-        return self.first_name + " " + self.last_name
-
+# L'utilisateur
+class Person(User):
+    class Meta:
+        proxy = True
+        ordering = ('first_name', 'last_name')
 
 # Ville
 class City(models.Model):
@@ -31,7 +30,7 @@ class Monument(models.Model):
 # Note est la table intermédiaire pour la relation Many to Many entre les utilisateurs et les monuments
 class Note(models.Model):
     note = models.TextField(blank=False)
-    user = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL) #si on détruit l'utilisateur, set la FK user à null
+    user = models.ForeignKey(Person, blank=False, null=True, on_delete=models.SET_NULL) #si on détruit l'utilisateur, set la FK user à null
     monument = models.ForeignKey(Monument, blank=False, null=True, on_delete=models.CASCADE) # si on détruit le monument on supprime la note
 
 

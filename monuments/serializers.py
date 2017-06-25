@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from monuments.models import User
+from monuments.models import Person
 
 
-class UserSerializer(serializers.ModelSerializer):
+class PersonSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name')
+        model = Person
+        fields = ('id', 'username', 'first_name', 'last_name', 'email')

@@ -7,14 +7,13 @@ from rest_framework import status
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
 
-from monuments import serializers
-from monuments.models import User
-from monuments.serializers import UserSerializer
+from monuments.models import Person
+from monuments.serializers import PersonSerializer
 
 @require_GET
 def users(request):
-    utilisateurs = User.objects.all()
-    utilisateurs_serializer = UserSerializer(utilisateurs, many=True)
+    utilisateurs = Person.objects.all()
+    utilisateurs_serializer = PersonSerializer(utilisateurs, many=True)
     return JsonResponse(utilisateurs_serializer.data, safe=False, status=status.HTTP_200_OK)
 
 
@@ -30,8 +29,13 @@ def user(request):
         except ParseError:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
+        retour = {'message': 'not implemented yet'}
+        return JsonResponse(retour, status=status.HTTP_204_NO_CONTENT)
+
         # désérialisations
-        user_serializer = UserSerializer(data=data)
+        user_serializer = PersonSerializer(data=data)
+
+        #TODO reprendre ici
         pprint(user_serializer)  # permet d'afficher le contenu de data dans la console
 
         # Si on a unutilisateur valide, on l'enregistre
@@ -43,6 +47,7 @@ def user(request):
 
     # Gestion de la méthode DELETE
     elif request.method == 'DELETE':
+        # TODO reprendre ici 
         retour = {'message': 'not implemented yet'}
         return JsonResponse(retour, status=status.HTTP_204_NO_CONTENT)
 

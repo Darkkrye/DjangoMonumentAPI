@@ -1,0 +1,21 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields":
+    {
+      "password": "pbkdf2_sha256$36000$D081iQGDlySR$Hydg51WvIZ4+a/oPcvJWzlnlJOiQh956JmK3aRTOqRI=",
+      "last_login": "2017-06-25T13:10:50.574Z",
+      "is_superuser": true,
+      "username": "eddard.stark",
+      "first_name": "Eddard",
+      "last_name": "Stark",
+      "email": "eddard@stark.got",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2017-06-25T13:10:13.330Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
