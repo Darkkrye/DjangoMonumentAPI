@@ -41,7 +41,131 @@
 		{
 			"name": "user",
 			"request": {
-				"url": "{{url}}/monuments/user",
+				"url": "{{url}}/monuments/user/17",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "city",
+			"request": {
+				"url": "{{url}}//monuments/city",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "city",
+			"request": {
+				"url": "{{url}}//monuments/city/9",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "address",
+			"request": {
+				"url": "{{url}}//monuments/address",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "address",
+			"request": {
+				"url": "{{url}}//monuments/address/9",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "monument",
+			"request": {
+				"url": "{{url}}//monuments/monument",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Test\", \n\t\"address\": 10\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "monument",
+			"request": {
+				"url": "{{url}}//monuments/monument/10",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "monument",
+			"request": {
+				"url": "{{url}}//monuments/note",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"note\": \"Bof\",\n\t\"user\": 1, \n\t\"monument\": 2\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "note",
+			"request": {
+				"url": "{{url}}//monuments/note/4",
 				"method": "DELETE",
 				"header": [],
 				"body": {},
