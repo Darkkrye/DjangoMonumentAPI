@@ -5,4 +5,10 @@ from monuments.models import Person
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ('id', 'username', 'first_name', 'last_name', 'email')
+        fields = ('pk', 'username', 'first_name', 'last_name', 'email')
+
+
+class PersonPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ('pk', 'username', 'first_name', 'last_name', 'email', 'password')

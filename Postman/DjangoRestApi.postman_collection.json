@@ -21,7 +21,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"first_name\": \"Prénom\",\n\t\"last_name\": \"Nom\"\n}"
+					"raw": "{\n\t\"first_name\": \"Petit\",\n\t\"last_name\": \"Grigri\", \n\t\"username\": \"grigri\",\n\t\"email\": \"petit@grigri.com\",\n\t\"password\": \"0123abcd\"\n}"
 				},
 				"description": ""
 			},
