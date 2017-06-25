@@ -1,0 +1,53 @@
+{
+	"variables": [],
+	"info": {
+		"name": "DjangoRestApi",
+		"_postman_id": "b0ea8343-47dd-3651-a2ab-39d3118f4eea",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post user",
+			"request": {
+				"url": "{{url}}/monuments/user",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\": \"Prénom\",\n\t\"last_name\": \"Nom\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"url": "{{url}}/monuments/users",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user",
+			"request": {
+				"url": "{{url}}/monuments/user",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
