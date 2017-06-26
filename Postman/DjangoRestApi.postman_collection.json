@@ -10,7 +10,7 @@
 		{
 			"name": "post user",
 			"request": {
-				"url": "{{url}}/monuments/user",
+				"url": "{{url}}/api/user",
 				"method": "POST",
 				"header": [
 					{
@@ -30,7 +30,7 @@
 		{
 			"name": "users",
 			"request": {
-				"url": "{{url}}/monuments/users",
+				"url": "{{url}}/api/users",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -41,7 +41,7 @@
 		{
 			"name": "user",
 			"request": {
-				"url": "{{url}}/monuments/user/17",
+				"url": "{{url}}/api/user/17",
 				"method": "DELETE",
 				"header": [],
 				"body": {},
@@ -52,7 +52,7 @@
 		{
 			"name": "city",
 			"request": {
-				"url": "{{url}}//monuments/city",
+				"url": "{{url}}/api/city",
 				"method": "POST",
 				"header": [
 					{
@@ -72,7 +72,7 @@
 		{
 			"name": "city",
 			"request": {
-				"url": "{{url}}//monuments/city/9",
+				"url": "{{url}}/api/city/9",
 				"method": "DELETE",
 				"header": [],
 				"body": {},
@@ -83,7 +83,7 @@
 		{
 			"name": "address",
 			"request": {
-				"url": "{{url}}//monuments/address",
+				"url": "{{url}}/api/address",
 				"method": "POST",
 				"header": [
 					{
@@ -103,7 +103,7 @@
 		{
 			"name": "address",
 			"request": {
-				"url": "{{url}}//monuments/address/9",
+				"url": "{{url}}/api/address/9",
 				"method": "DELETE",
 				"header": [],
 				"body": {},
@@ -114,7 +114,7 @@
 		{
 			"name": "monument",
 			"request": {
-				"url": "{{url}}//monuments/monument",
+				"url": "{{url}}/api/monument",
 				"method": "POST",
 				"header": [
 					{
@@ -134,7 +134,7 @@
 		{
 			"name": "monument",
 			"request": {
-				"url": "{{url}}//monuments/monument/10",
+				"url": "{{url}}/api/monument/10",
 				"method": "DELETE",
 				"header": [],
 				"body": {},
@@ -145,7 +145,7 @@
 		{
 			"name": "monument",
 			"request": {
-				"url": "{{url}}//monuments/note",
+				"url": "{{url}}/api/note",
 				"method": "POST",
 				"header": [
 					{
@@ -165,7 +165,7 @@
 		{
 			"name": "note",
 			"request": {
-				"url": "{{url}}//monuments/note/4",
+				"url": "{{url}}/api/note/4",
 				"method": "DELETE",
 				"header": [],
 				"body": {},

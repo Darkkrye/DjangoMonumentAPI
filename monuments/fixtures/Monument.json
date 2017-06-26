@@ -21,5 +21,64 @@
       "name": "Conciergerie",
       "address": 3
     }
+  },
+
+
+
+  {
+    "model": "monuments.monument",
+    "pk": 4, "fields":
+    {
+      "name": "Palais A",
+      "address": 4
+    }
+  },
+  {
+    "model": "monuments.monument",
+    "pk": 5, "fields":
+    {
+      "name": "Palais B",
+      "address": 5
+    }
+  },
+  {
+    "model": "monuments.monument",
+    "pk": 6, "fields":
+    {
+      "name": "Palais C",
+      "address": 6
+    }
+  },
+  {
+    "model": "monuments.monument",
+    "pk": 7, "fields":
+    {
+      "name": "Palais D",
+      "address": 7
+    }
+  },
+  {
+    "model": "monuments.monument",
+    "pk": 8, "fields":
+    {
+      "name": "Palais E",
+      "address": 8
+    }
+  },
+  {
+    "model": "monuments.monument",
+    "pk": 9, "fields":
+    {
+      "name": "Palais F",
+      "address": 9
+    }
+  },
+  {
+    "model": "monuments.monument",
+    "pk": 10, "fields":
+    {
+      "name": "Palais G",
+      "address": 10
+    }
   }
 ]

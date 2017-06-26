@@ -8,17 +8,22 @@ from rest_framework import status
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
 
-from monuments.models import Person, City, Address, Note
-from monuments.serializers import PersonSerializer, PersonPostSerializer, MonumentSerializer, AddressSerializer, \
-    CitySerializer, NoteSerializer
+from monuments.models import *
+from monuments.serializers import *
 
-
+#
+# GESTION DES USERS
+#
 @require_GET
-def users(request):
-    utilisateurs = Person.objects.all()
-    utilisateurs_serializer = PersonSerializer(utilisateurs, many=True)
-    return JsonResponse(utilisateurs_serializer.data, safe=False, status=status.HTTP_200_OK)
-
+def users(request, pk=None):
+    if pk == None:
+        users = Person.objects.all()
+        us = PersonSerializer(users, many=True)
+        return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
+    else:
+        users = Person.objects.get(pk=pk)
+        us = PersonSerializer(users, many=False)
+        return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
 
 @csrf_exempt
 @require_http_methods(["DELETE", "POST"])
@@ -75,9 +80,31 @@ def user(request, pk=None):
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+
+
+
+
+
+
+
+
+
+
+
 #
-# GESTION DES MONUMENTS
+# GESTION DES NOTES
 #
+@require_GET
+def notes(request, id=None):
+    if id == None:
+        notes = Note.objects.all()
+        ns = NoteSerializer(notes, many=True)
+        return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
+    else:
+        notes = Note.objects.get(id=id)
+        ns = NoteSerializer(notes, many=False)
+        return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
+
 @csrf_exempt
 @require_http_methods(["DELETE", "POST"])
 def note(request, id=None):
@@ -122,11 +149,84 @@ def note(request, id=None):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 #
 # GESTION DES MONUMENTS
 # ATTENTION LA RELATION ENTRE LES MONUMENT ET LES ADDRESS EST UNE RELATION ONE TO ONE DONC SI L'ADDRESSE EST DEJA
 # UTILISEE, CA PLANTE
 #
+@require_GET
+def monuments(request, id=None):
+    if id == None:
+        limit = request.GET.get('limit')
+        offset = request.GET.get('offset')
+        page = request.GET.get('page')
+        monuments = Monument.objects.all()
+
+        if limit or offset or page != None:
+            # Set default values
+            if limit != None and int(limit) == 1:
+                limit = 2
+            if limit == None:
+                limit = 100
+            if offset == None:
+                offset = 0
+            if page == None:
+                page = 1
+            if int(page) > 1:
+                offset = 1
+
+            # Force int for values
+            limit = int(limit)
+            offset = int(offset)
+            page = int(page)
+
+            # Calculate Page Offset and End Item
+            pageOffset = page * offset
+            endItem = pageOffset + limit
+
+            # Retrieve monuments
+            newMonuments = monuments[pageOffset:endItem]
+
+            # Create monuments json
+            monuments_serializer = MonumentSerializerWithPagination(newMonuments, many=True)
+            #monuments_serializer = MonumentSerializerWithPagination(newMonuments, many=True, context={'current_page': pageOffset, 'limit': limit})
+
+            # Create return
+            if page == 1 or page == 0:
+                previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(len(newMonuments)) + "&page=" + str(1)
+            else:
+                previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(len(newMonuments)) + "&page=" + str(page - 1)
+
+            content = {
+                "count": len(newMonuments),
+                "next": "http://" + request.get_host() + request.path_info +"?limit=" + str(len(newMonuments)) + "&page=" + str(page + 1),
+                "previous": previous,
+                "results": monuments_serializer.data
+            }
+
+            # Send return
+            return JsonResponse(content, safe=False, status=status.HTTP_200_OK)
+        else:
+            monuments_serializer = MonumentSerializer(monuments, many=True)
+            return JsonResponse(monuments_serializer.data, safe=False, status=status.HTTP_200_OK)
+    else:
+        monuments = Monument.objects.get(id=id)
+        monuments_serializer = MonumentSerializerWithPagination(monuments, many=False)
+        return JsonResponse(monuments_serializer.data, safe=False, status=status.HTTP_200_OK)
+
+
 @csrf_exempt
 @require_http_methods(["DELETE", "POST"])
 def monument(request, id=None):
@@ -171,9 +271,33 @@ def monument(request, id=None):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 #
 # GESTION DES ADDRESS
 #
+@require_GET
+def addresses(request, id=None):
+    if id == None:
+        addresses = Address.objects.all()
+        addresses_serializer = AddressSerializer(addresses, many=True)
+        return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
+    else:
+        addresses = Address.objects.get(id=id)
+        addresses_serializer = AddressSerializer(addresses, many=False)
+        return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
+
+
 @csrf_exempt
 @require_http_methods(["DELETE", "POST"])
 def address(request, id=None):
@@ -217,9 +341,31 @@ def address(request, id=None):
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
+
+
+
+
+
+
+
+
+
+
+
 #
 # GESTION DES CITY
 #
+@require_GET
+def cities(request, id=None):
+    if id == None:
+        cities = City.objects.all()
+        cs = CitySerializer(cities, many=True)
+        return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
+    else:
+        cities = City.objects.get(id=id)
+        cs = CitySerializer(cities, many=False)
+        return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
+
 @csrf_exempt
 @require_http_methods(["DELETE", "POST"])
 def city(request, id=None):

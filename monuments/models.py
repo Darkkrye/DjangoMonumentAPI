@@ -29,6 +29,11 @@ class Monument(models.Model):
     address = models.OneToOneField(Address, blank=True, null=True)  # si on supprime une adresse on détruit le monument
 
 
+    def retrieve_notes(self):
+        notes = Note.objects.filter(monument=self)
+        return notes
+
+
 # Note sur le monument
 # Note est la table intermédiaire pour la relation Many to Many entre les utilisateurs et les monuments
 class Note(models.Model):
