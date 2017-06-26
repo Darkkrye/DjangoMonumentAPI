@@ -7,6 +7,8 @@ urlpatterns = [
     url(r'^user$', views.user, name='user_post'),
     url(r'^user/(?P<pk>\d+)$', views.user, name='user_delete'),
 
+    url(r'^login$', views.login, name='login'),
+
     url(r'^note$', views.note, name='note_post'),
     url(r'^note/(?P<id>\d+)$', views.note, name='note_delete'),
 

@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -18,6 +16,10 @@ def users(request):
     utilisateurs = Person.objects.all()
     utilisateurs_serializer = PersonSerializer(utilisateurs, many=True)
     return JsonResponse(utilisateurs_serializer.data, safe=False, status=status.HTTP_200_OK)
+
+@require_POST
+def login(request):
+    return HttpResponse(status=status.HTTP_201_CREATED)
 
 
 @csrf_exempt
@@ -75,6 +77,7 @@ def user(request, pk=None):
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+
 #
 # GESTION DES MONUMENTS
 #
@@ -119,7 +122,6 @@ def note(request, id=None):
     #
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
 
 
 #
@@ -168,7 +170,6 @@ def monument(request, id=None):
     #
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
 
 
 #
