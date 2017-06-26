@@ -32,4 +32,7 @@ urlpatterns = [
     url(r'^city/(?P<id>\d+)$', views.cities, name='cities'),
     url(r'^city$', views.city, name='city_post'),
     url(r'^city/(?P<id>\d+)$', views.city, name='city_delete'),
+
+    # Login routes
+    url(r'^login$', views.login, name='login'),
 ]
