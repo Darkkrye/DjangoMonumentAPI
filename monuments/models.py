@@ -17,8 +17,21 @@ class City(models.Model):
     zip_code = models.IntegerField(blank=False)
     city_name = models.CharField(max_length=200, blank=False)
 
+    def retrieve_weather(self):
+        weather = Weather.objects.filter(city=self)
+        return weather[len(weather) - 1]
 
-# Adress
+class Weather(models.Model):
+    humidity = models.IntegerField(blank=True, null=True)
+    temp_min = models.CharField(max_length=200, blank=True, null=True)
+    temp_max = models.CharField(max_length=200, blank=True, null=True)
+    visibility = models.IntegerField(blank=True, null=True)
+    wind_speed = models.CharField(max_length=200, blank=True, null=True)
+    main = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=200, blank=True, null=True)
+    city = models.ForeignKey(City, blank=True, null=True)
+
+# Address
 class Address(models.Model):
     address_1 = models.CharField(max_length=200, blank=False)
     address_2 = models.CharField(max_length=200, blank=True, null=True)

@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
 
+from monuments.client import getWeatherByCity
 from monuments.models import *
 from monuments.serializers import *
 
@@ -171,11 +172,15 @@ def note(request, id=None):
 #
 @require_GET
 def monuments(request, id=None):
+    monuments = Monument.objects.all()
+
+    for m in monuments:
+        getWeatherByCity(m.address.city.city_name, m.address.city.pk)
+
     if id == None:
         limit = request.GET.get('limit')
         offset = request.GET.get('offset')
         page = request.GET.get('page')
-        monuments = Monument.objects.all()
 
         if limit or offset or page != None:
             # Set default values
@@ -203,8 +208,7 @@ def monuments(request, id=None):
             newMonuments = monuments[pageOffset:endItem]
 
             # Create monuments json
-            monuments_serializer = MonumentSerializerWithPagination(newMonuments, many=True)
-            #monuments_serializer = MonumentSerializerWithPagination(newMonuments, many=True, context={'current_page': pageOffset, 'limit': limit})
+            monuments_serializer = MonumentSerializer(newMonuments, many=True)
 
             # Create return
             if page == 1 or page == 0:
@@ -225,9 +229,10 @@ def monuments(request, id=None):
             monuments_serializer = MonumentSerializer(monuments, many=True)
             return JsonResponse(monuments_serializer.data, safe=False, status=status.HTTP_200_OK)
     else:
-        monuments = Monument.objects.get(id=id)
-        monuments_serializer = MonumentSerializerWithPagination(monuments, many=False)
-        return JsonResponse(monuments_serializer.data, safe=False, status=status.HTTP_200_OK)
+        monument = Monument.objects.get(id=id)
+        getWeatherByCity(monument.address.city.city_name, monument.address.city.pk)
+        monument_serializer = MonumentSerializer(monument, many=False)
+        return JsonResponse(monument_serializer.data, safe=False, status=status.HTTP_200_OK)
 
 
 @csrf_exempt

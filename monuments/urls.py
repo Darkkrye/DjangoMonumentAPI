@@ -16,8 +16,8 @@ urlpatterns = [
     url(r'^note/(?P<id>\d+)$', views.note, name='note_delete'),
 
     # Monuments routes
-    url(r'^monuments$', views.monuments, name='monuments'),
-    url(r'^monuments/(?P<id>\d+)$', views.monuments, name='monuments'),
+    url(r'^monument$', views.monuments, name='monuments'),
+    url(r'^monument/(?P<id>\d+)$', views.monuments, name='monuments'),
     url(r'^monument$', views.monument, name='monument_post'),
     url(r'^monument/(?P<id>\d+)$', views.monument, name='monument_delete'),
 
