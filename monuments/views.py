@@ -25,7 +25,8 @@ def login(request):
         if user is not None:
             print("user")
             token = get_or_create_token(user)
-            return JsonResponse(data={'token': token.hash})
+            return JsonResponse(data={
+                'token': token.hash,'created_time': token.expiration_date})
     return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
 
