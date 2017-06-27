@@ -5,6 +5,10 @@ from django.utils import timezone
 from monuments.models import Token
 
 
+# test user
+# username : test
+# password : test
+
 def get_basic_auth(request):
     if 'HTTP_AUTHORIZATION' in request.META:
         auth = request.META['HTTP_AUTHORIZATION'].split(' ')
@@ -24,3 +28,13 @@ def get_or_create_token(user):
     hash_phrase = hashlib.sha256(bytes(phrase, 'ascii')).hexdigest()
     token = Token.objects.create(user=user, hash=hash_phrase)
     return token
+
+
+def check_request_token(request):
+    token = get_basic_auth(request)
+    if token is not None:
+        token = Token.objects.filter(hash=token)
+        if token.count() >= 1:
+            if not token[0].is_expired():
+                return True
+    return False

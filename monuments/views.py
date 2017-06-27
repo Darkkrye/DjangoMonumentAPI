@@ -8,9 +8,10 @@ from rest_framework import status
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
 
-from monuments.auth import get_basic_auth, get_or_create_token
+from monuments.auth import get_basic_auth, get_or_create_token, check_request_token
 from monuments.client import getWeatherByCity
 from monuments.serializers import *
+
 
 # Auth user
 @csrf_exempt
@@ -27,10 +28,12 @@ def login(request):
             return JsonResponse(data={'token': token.hash})
     return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
+
 #
 # GESTION DES USERS
 #
 
+# @csrf_exempt : use without token
 @csrf_exempt
 @require_http_methods(["DELETE", "POST", "GET"])
 def user(request, pk=None):
@@ -38,14 +41,21 @@ def user(request, pk=None):
     # Gestion de la méthode POST
     #
     if request.method == 'GET':
-        if pk == None:
-            users = Person.objects.all()
-            us = PersonSerializer(users, many=True)
-            return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
+
+        is_valid_token = check_request_token(request)
+
+        if is_valid_token is True:
+            if pk is None:
+                users = Person.objects.all()
+                us = PersonSerializer(users, many=True)
+                return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
+            else:
+                users = Person.objects.get(pk=pk)
+                us = PersonSerializer(users, many=False)
+                return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
         else:
-            users = Person.objects.get(pk=pk)
-            us = PersonSerializer(users, many=False)
-            return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+
     elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
@@ -94,17 +104,6 @@ def user(request, pk=None):
     #
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-
-
-
-
-
-
-
-
-
-
 
 
 #
@@ -160,19 +159,6 @@ def note(request, id=None):
     #
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #
@@ -288,18 +274,6 @@ def monument(request, id=None):
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 #
 # GESTION DES ADDRESS
 #
@@ -353,17 +327,6 @@ def address(request, id=None):
     #
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-
-
-
-
-
-
-
-
-
-
 
 
 #
