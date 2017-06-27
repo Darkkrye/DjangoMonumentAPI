@@ -4,13 +4,11 @@ from . import views
 
 urlpatterns = [
     # Users routes
-    url(r'^user$', views.users, name='index'),
-    url(r'^user/(?P<pk>\d+)$', views.users, name='index'),
-    url(r'^user$', views.user, name='user_post'),
-    url(r'^user/(?P<pk>\d+)$', views.user, name='user_delete'),
+    url(r'^user$', views.user, name='user'),
+    url(r'^user/(?P<pk>\d+)$', views.user, name='user_pk'),
 
     # Notes routes
-    url(r'^note$', views.notes, name='notes'),
+    url(r'^note$', views.notes, name='notes_all'),
     url(r'^note/(?P<id>\d+)$', views.notes, name='notes'),
     url(r'^note$', views.note, name='note_post'),
     url(r'^note/(?P<id>\d+)$', views.note, name='note_delete'),

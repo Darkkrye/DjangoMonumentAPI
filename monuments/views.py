@@ -13,28 +13,27 @@ from monuments.serializers import *
 #
 # GESTION DES USERS
 #
-@require_GET
-def users(request, pk=None):
-    if pk == None:
-        users = Person.objects.all()
-        us = PersonSerializer(users, many=True)
-        return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
-    else:
-        users = Person.objects.get(pk=pk)
-        us = PersonSerializer(users, many=False)
-        return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
 
 @require_POST
 def login(request):
     return HttpResponse(status=status.HTTP_201_CREATED)
 
 @csrf_exempt
-@require_http_methods(["DELETE", "POST"])
+@require_http_methods(["DELETE", "POST", "GET"])
 def user(request, pk=None):
     #
     # Gestion de la méthode POST
     #
-    if request.method == 'POST':
+    if request.method == 'GET':
+        if pk == None:
+            users = Person.objects.all()
+            us = PersonSerializer(users, many=True)
+            return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
+        else:
+            users = Person.objects.get(pk=pk)
+            us = PersonSerializer(users, many=False)
+            return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
+    elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
             data = JSONParser().parse(request)
