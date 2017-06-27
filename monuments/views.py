@@ -97,24 +97,22 @@ def user(request, pk=None):
 #
 # GESTION DES NOTES
 #
-@require_GET
-def notes(request, id=None):
-    if id == None:
-        notes = Note.objects.all()
-        ns = NoteSerializer(notes, many=True)
-        return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
-    else:
-        notes = Note.objects.get(id=id)
-        ns = NoteSerializer(notes, many=False)
-        return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
-
 @csrf_exempt
-@require_http_methods(["DELETE", "POST"])
+@require_http_methods(["DELETE", "POST", "GET"])
 def note(request, id=None):
     #
     # Gestion de la méthode POST
     #
-    if request.method == 'POST':
+    if request.method == 'GET':
+        if id == None:
+            notes = Note.objects.all()
+            ns = NoteSerializer(notes, many=True)
+            return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
+        else:
+            notes = Note.objects.get(id=id)
+            ns = NoteSerializer(notes, many=False)
+            return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
+    elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
             data = JSONParser().parse(request)
@@ -169,78 +167,78 @@ def note(request, id=None):
 # ATTENTION LA RELATION ENTRE LES MONUMENT ET LES ADDRESS EST UNE RELATION ONE TO ONE DONC SI L'ADDRESSE EST DEJA
 # UTILISEE, CA PLANTE
 #
-@require_GET
-def monuments(request, id=None):
-    monuments = Monument.objects.all()
-
-    for m in monuments:
-        getWeatherByCity(m.address.city.city_name, m.address.city.pk)
-
-    if id == None:
-        limit = request.GET.get('limit')
-        offset = request.GET.get('offset')
-        page = request.GET.get('page')
-
-        if limit or offset or page != None:
-            # Set default values
-            if limit != None and int(limit) == 1:
-                limit = 2
-            if limit == None:
-                limit = 100
-            if offset == None:
-                offset = 0
-            if page == None:
-                page = 1
-            if int(page) > 1:
-                offset = 1
-
-            # Force int for values
-            limit = int(limit)
-            offset = int(offset)
-            page = int(page)
-
-            # Calculate Page Offset and End Item
-            pageOffset = page * offset
-            endItem = pageOffset + limit
-
-            # Retrieve monuments
-            newMonuments = monuments[pageOffset:endItem]
-
-            # Create monuments json
-            monuments_serializer = MonumentSerializer(newMonuments, many=True)
-
-            # Create return
-            if page == 1 or page == 0:
-                previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(len(newMonuments)) + "&page=" + str(1)
-            else:
-                previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(len(newMonuments)) + "&page=" + str(page - 1)
-
-            content = {
-                "count": len(newMonuments),
-                "next": "http://" + request.get_host() + request.path_info +"?limit=" + str(len(newMonuments)) + "&page=" + str(page + 1),
-                "previous": previous,
-                "results": monuments_serializer.data
-            }
-
-            # Send return
-            return JsonResponse(content, safe=False, status=status.HTTP_200_OK)
-        else:
-            monuments_serializer = MonumentSerializer(monuments, many=True)
-            return JsonResponse(monuments_serializer.data, safe=False, status=status.HTTP_200_OK)
-    else:
-        monument = Monument.objects.get(id=id)
-        getWeatherByCity(monument.address.city.city_name, monument.address.city.pk)
-        monument_serializer = MonumentSerializer(monument, many=False)
-        return JsonResponse(monument_serializer.data, safe=False, status=status.HTTP_200_OK)
-
-
 @csrf_exempt
-@require_http_methods(["DELETE", "POST"])
+@require_http_methods(["DELETE", "POST", "GET"])
 def monument(request, id=None):
     #
     # Gestion de la méthode POST
     #
-    if request.method == 'POST':
+    if request.method == 'GET':
+        monuments = Monument.objects.all()
+
+        for m in monuments:
+            getWeatherByCity(m.address.city.city_name, m.address.city.pk)
+
+        if id == None:
+            limit = request.GET.get('limit')
+            offset = request.GET.get('offset')
+            page = request.GET.get('page')
+
+            if limit or offset or page != None:
+                # Set default values
+                if limit != None and int(limit) == 1:
+                    limit = 2
+                if limit == None:
+                    limit = 100
+                if offset == None:
+                    offset = 0
+                if page == None:
+                    page = 1
+                if int(page) > 1:
+                    offset = 1
+
+                # Force int for values
+                limit = int(limit)
+                offset = int(offset)
+                page = int(page)
+
+                # Calculate Page Offset and End Item
+                pageOffset = page * offset
+                endItem = pageOffset + limit
+
+                # Retrieve monuments
+                newMonuments = monuments[pageOffset:endItem]
+
+                # Create monuments json
+                monuments_serializer = MonumentSerializer(newMonuments, many=True)
+
+                # Create return
+                if page == 1 or page == 0:
+                    previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(
+                        len(newMonuments)) + "&page=" + str(1)
+                else:
+                    previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(
+                        len(newMonuments)) + "&page=" + str(page - 1)
+
+                content = {
+                    "count": len(newMonuments),
+                    "next": "http://" + request.get_host() + request.path_info + "?limit=" + str(
+                        len(newMonuments)) + "&page=" + str(page + 1),
+                    "previous": previous,
+                    "results": monuments_serializer.data
+                }
+
+                # Send return
+                return JsonResponse(content, safe=False, status=status.HTTP_200_OK)
+            else:
+                monuments_serializer = MonumentSerializer(monuments, many=True)
+                return JsonResponse(monuments_serializer.data, safe=False, status=status.HTTP_200_OK)
+        else:
+            monument = Monument.objects.get(id=id)
+            getWeatherByCity(monument.address.city.city_name, monument.address.city.pk)
+            monument_serializer = MonumentSerializer(monument, many=False)
+            return JsonResponse(monument_serializer.data, safe=False, status=status.HTTP_200_OK)
+    elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
             data = JSONParser().parse(request)
@@ -292,25 +290,22 @@ def monument(request, id=None):
 #
 # GESTION DES ADDRESS
 #
-@require_GET
-def addresses(request, id=None):
-    if id == None:
-        addresses = Address.objects.all()
-        addresses_serializer = AddressSerializer(addresses, many=True)
-        return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
-    else:
-        addresses = Address.objects.get(id=id)
-        addresses_serializer = AddressSerializer(addresses, many=False)
-        return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
-
-
 @csrf_exempt
-@require_http_methods(["DELETE", "POST"])
+@require_http_methods(["DELETE", "POST", "GET"])
 def address(request, id=None):
     #
     # Gestion de la méthode POST
     #
-    if request.method == 'POST':
+    if request.method == 'GET':
+        if id == None:
+            addresses = Address.objects.all()
+            addresses_serializer = AddressSerializer(addresses, many=True)
+            return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
+        else:
+            addresses = Address.objects.get(id=id)
+            addresses_serializer = AddressSerializer(addresses, many=False)
+            return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
+    elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
             data = JSONParser().parse(request)
@@ -361,24 +356,22 @@ def address(request, id=None):
 #
 # GESTION DES CITY
 #
-@require_GET
-def cities(request, id=None):
-    if id == None:
-        cities = City.objects.all()
-        cs = CitySerializer(cities, many=True)
-        return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
-    else:
-        cities = City.objects.get(id=id)
-        cs = CitySerializer(cities, many=False)
-        return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
-
 @csrf_exempt
-@require_http_methods(["DELETE", "POST"])
+@require_http_methods(["DELETE", "POST", "GET"])
 def city(request, id=None):
     #
     # Gestion de la méthode POST
     #
-    if request.method == 'POST':
+    if request.method == 'GET':
+        if id == None:
+            cities = City.objects.all()
+            cs = CitySerializer(cities, many=True)
+            return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
+        else:
+            cities = City.objects.get(id=id)
+            cs = CitySerializer(cities, many=False)
+            return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
+    elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
             data = JSONParser().parse(request)
