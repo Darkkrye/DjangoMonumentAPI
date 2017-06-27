@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "DjangoRestApi",
-		"_postman_id": "b0ea8343-47dd-3651-a2ab-39d3118f4eea",
+		"_postman_id": "5dd553a5-844e-f853-1dca-23c3ee18594f",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -21,7 +21,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"first_name\": \"Petit\",\n\t\"last_name\": \"Grigri\", \n\t\"username\": \"grigri\",\n\t\"email\": \"petit@grigri.com\",\n\t\"password\": \"0123abcd\"\n}"
+					"raw": "{\n\t\"first_name\": \"Test2\",\n\t\"last_name\": \"Test2\", \n\t\"username\": \"test2\",\n\t\"email\": \"test2@gmail.com\",\n\t\"password\": \"test2\"\n}"
 				},
 				"description": ""
 			},
@@ -30,9 +30,15 @@
 		{
 			"name": "users",
 			"request": {
-				"url": "{{url}}/api/users",
+				"url": "{{url}}/api/user",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic ac97fbdae97cb17e3a9cd1b5b8dff3d1fcb422953903703a090045b47555eabd",
+						"description": ""
+					}
+				],
 				"body": {},
 				"description": ""
 			},
@@ -44,7 +50,10 @@
 				"url": "{{url}}/api/user/17",
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -75,7 +84,10 @@
 				"url": "{{url}}/api/city/9",
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -106,7 +118,10 @@
 				"url": "{{url}}/api/address/9",
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -137,7 +152,10 @@
 				"url": "{{url}}/api/monument/10",
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -168,6 +186,26 @@
 				"url": "{{url}}/api/note/4",
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "login_get_token",
+			"request": {
+				"url": "{{url}}/api/login",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp0ZXN0",
+						"description": ""
+					}
+				],
 				"body": {},
 				"description": ""
 			},

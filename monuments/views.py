@@ -42,9 +42,9 @@ def user(request, pk=None):
     #
     if request.method == 'GET':
 
-        is_valid_token = check_request_token(request)
+        is_token_valid = check_request_token(request)
 
-        if is_valid_token is True:
+        if is_token_valid is True:
             if pk is None:
                 users = Person.objects.all()
                 us = PersonSerializer(users, many=True)
