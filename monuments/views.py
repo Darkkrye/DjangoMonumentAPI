@@ -1,4 +1,6 @@
-from django.contrib.auth.models import User
+from base64 import b64decode
+
+from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET, require_http_methods
@@ -6,17 +8,28 @@ from rest_framework import status
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
 
+from monuments.auth import get_basic_auth, get_or_create_token
 from monuments.client import getWeatherByCity
-from monuments.models import *
 from monuments.serializers import *
+
+# Auth user
+@csrf_exempt
+def login(request):
+    print("login view")
+    basic = get_basic_auth(request)
+    if basic is not None:
+        print("basic")
+        log = b64decode(bytes(basic, 'ascii')).decode('ascii').split(':')
+        user = authenticate(username=log[0], password=log[1])
+        if user is not None:
+            print("user")
+            token = get_or_create_token(user)
+            return JsonResponse(data={'token': token.hash})
+    return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
 #
 # GESTION DES USERS
 #
-
-@require_POST
-def login(request):
-    return HttpResponse(status=status.HTTP_201_CREATED)
 
 @csrf_exempt
 @require_http_methods(["DELETE", "POST", "GET"])

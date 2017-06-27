@@ -1,8 +1,21 @@
+import datetime
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
+
 
 # Token model
+def get_expiration_date():
+    return timezone.now() + datetime.timedelta(days=1)
 
+
+class Token(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE, unique=True)
+    hash = models.CharField(max_length=100)
+    expiration_date = models.DateTimeField(default=get_expiration_date)
+
+    def is_expired(self):
+        return self.expiration_date < timezone.now()
 
 
 # L'utilisateur
@@ -21,6 +34,7 @@ class City(models.Model):
         weather = Weather.objects.filter(city=self)
         return weather[len(weather) - 1]
 
+
 class Weather(models.Model):
     humidity = models.IntegerField(blank=True, null=True)
     temp_min = models.CharField(max_length=200, blank=True, null=True)
@@ -30,6 +44,7 @@ class Weather(models.Model):
     main = models.CharField(max_length=200, blank=True, null=True)
     description = models.CharField(max_length=200, blank=True, null=True)
     city = models.ForeignKey(City, blank=True, null=True)
+
 
 # Address
 class Address(models.Model):
@@ -43,7 +58,6 @@ class Address(models.Model):
 class Monument(models.Model):
     name = models.CharField(max_length=200, blank=False)
     address = models.OneToOneField(Address, blank=True, null=True)  # si on supprime une adresse on détruit le monument
-
 
     def retrieve_notes(self):
         notes = Note.objects.filter(monument=self)
