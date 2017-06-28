@@ -63,6 +63,7 @@ class Address(models.Model):
     def __str__(self):
         return self.address_1 + " " + self.address_2
 
+
 # Le monument
 class Monument(models.Model):
     name = models.CharField(max_length=200, blank=False)

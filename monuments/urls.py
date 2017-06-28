@@ -1,6 +1,9 @@
 from django.conf.urls import url
-
+from rest_framework_swagger.views import get_swagger_view
 from . import views
+
+schema_view = get_swagger_view(title='Monuments API')
+
 
 urlpatterns = [
     # Users routes
@@ -25,4 +28,7 @@ urlpatterns = [
 
     # Login routes
     url(r'^login$', views.login, name='login'),
+
+    url(r'^', schema_view, name="docs")
+
 ]

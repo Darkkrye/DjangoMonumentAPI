@@ -5,6 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET, require_http_methods
 from rest_framework import status
+from rest_framework.decorators import renderer_classes, api_view
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
 
@@ -14,8 +15,13 @@ from monuments.serializers import *
 
 
 # Auth user
-@csrf_exempt
+@api_view(["GET"])
+@require_http_methods(["GET"])
 def login(request):
+    """
+        Permet à l'utilisateur de se connecter à l'API
+
+    """
     print("login view")
     basic = get_basic_auth(request)
     if basic is not None:
@@ -36,8 +42,17 @@ def login(request):
 
 # @csrf_exempt : use without token
 @csrf_exempt
+@api_view(["DELETE", "POST", "GET"])
 @require_http_methods(["DELETE", "POST", "GET"])
 def user(request, pk=None):
+    """
+        post:
+            Permet de créer un utilisateur
+        delete:
+            Permet de supprimer un utilisateur
+        get:
+            Permet de récupérer un ou plusieurs utilisateur
+    """
     #
     # Gestion de la méthode POST
     #
@@ -111,8 +126,17 @@ def user(request, pk=None):
 # GESTION DES NOTES
 #
 @csrf_exempt
+@api_view(["DELETE", "POST", "GET"])
 @require_http_methods(["DELETE", "POST", "GET"])
 def note(request, id=None):
+    """
+        post:
+            Permet de créer une note
+        delete:
+            Permet de supprimer une note
+        get:
+            Permet de récupérer une ou plusieurs note
+    """
     #
     # Gestion de la méthode POST
     #
@@ -168,8 +192,17 @@ def note(request, id=None):
 # UTILISEE, CA PLANTE
 #
 @csrf_exempt
+@api_view(["DELETE", "POST", "GET"])
 @require_http_methods(["DELETE", "POST", "GET"])
 def monument(request, id=None):
+    """
+        post:
+            Permet de créer un monument
+        delete:
+            Permet de supprimer un monument
+        get:
+            Permet de récupérer un ou plusieurs monument
+    """
     #
     # Gestion de la méthode POST
     #
@@ -261,7 +294,7 @@ def monument(request, id=None):
     elif request.method == 'DELETE':
         # étant donné que l'on peut ne pas avoir de pk (paramètre facultatif) on fait un try / catch
         try:
-            monument_delete = monument.objects.get(pk=id)
+            monument_delete = Monument.objects.get(pk=id)
         except:
             return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
@@ -279,8 +312,17 @@ def monument(request, id=None):
 # GESTION DES ADDRESS
 #
 @csrf_exempt
+@api_view(["DELETE", "POST", "GET"])
 @require_http_methods(["DELETE", "POST", "GET"])
 def address(request, id=None):
+    """
+        post:
+            Permet de créer une addresse
+        delete:
+            Permet de supprimer une addresse
+        get:
+            Permet de récupérer une ou plusieurs addresse
+    """
     #
     # Gestion de la méthode POST
     #
@@ -334,8 +376,17 @@ def address(request, id=None):
 # GESTION DES CITY
 #
 @csrf_exempt
+@api_view(["DELETE", "POST", "GET"])
 @require_http_methods(["DELETE", "POST", "GET"])
 def city(request, id=None):
+    """
+        post:
+            Permet de créer une city
+        delete:
+            Permet de supprimer une city
+        get:
+            Permet de récupérer une ou plusieurs city
+    """
     #
     # Gestion de la méthode POST
     #

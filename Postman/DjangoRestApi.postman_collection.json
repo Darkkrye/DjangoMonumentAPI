@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "DjangoRestApi",
-		"_postman_id": "5dd553a5-844e-f853-1dca-23c3ee18594f",
+		"_postman_id": "0aa58932-49da-5286-f274-598cd330952a",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -35,7 +35,24 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic ac97fbdae97cb17e3a9cd1b5b8dff3d1fcb422953903703a090045b47555eabd",
+						"value": "Basic {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/1",
+			"request": {
+				"url": "{{url}}/api/user/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{token}}",
 						"description": ""
 					}
 				],
@@ -53,6 +70,46 @@
 				"body": {
 					"mode": "raw",
 					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "city",
+			"request": {
+				"url": "{{url}}/api/city",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "city/1",
+			"request": {
+				"url": "{{url}}/api/city/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
 				},
 				"description": ""
 			},
@@ -87,6 +144,46 @@
 				"body": {
 					"mode": "raw",
 					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "address",
+			"request": {
+				"url": "{{url}}/api/address",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "address/1",
+			"request": {
+				"url": "{{url}}/api/address/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
 				},
 				"description": ""
 			},
@@ -149,6 +246,46 @@
 		{
 			"name": "monument",
 			"request": {
+				"url": "{{url}}/api/monument",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"note\": \"Bof\",\n\t\"user\": 1, \n\t\"monument\": 2\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "monument/1",
+			"request": {
+				"url": "{{url}}/api/monument/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"note\": \"Bof\",\n\t\"user\": 1, \n\t\"monument\": 2\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "monument",
+			"request": {
 				"url": "{{url}}/api/monument/10",
 				"method": "DELETE",
 				"header": [],
@@ -197,6 +334,32 @@
 		{
 			"name": "login_get_token",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "eddard.stark",
+						"password": "winteriscoming",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{url}}/api/login",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic ZWRkYXJkLnN0YXJrOndpbnRlcmlzY29taW5n",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "login_get_token copy",
+			"request": {
 				"url": "{{url}}/api/login",
 				"method": "GET",
 				"header": [
@@ -206,7 +369,10 @@
 						"description": ""
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
