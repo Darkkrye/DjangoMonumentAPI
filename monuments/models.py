@@ -24,6 +24,9 @@ class Person(User):
         proxy = True
         ordering = ('first_name', 'last_name')
 
+    def __str__(self):
+        return self.first_name + " " + self.last_name + " (" + self.email + ")"
+
 
 # Ville
 class City(models.Model):
@@ -33,6 +36,9 @@ class City(models.Model):
     def retrieve_weather(self):
         weather = Weather.objects.filter(city=self)
         return weather[len(weather) - 1]
+
+    def __str__(self):
+        return str(self.zip_code) + " " + self.city_name
 
 
 class Weather(models.Model):
@@ -54,6 +60,9 @@ class Address(models.Model):
                              on_delete=models.CASCADE)  # si on supprime une City, on détruit l'adresse
 
 
+    def __str__(self):
+        return self.address_1 + " " + self.address_2
+
 # Le monument
 class Monument(models.Model):
     name = models.CharField(max_length=200, blank=False)
@@ -63,6 +72,8 @@ class Monument(models.Model):
         notes = Note.objects.filter(monument=self)
         return notes
 
+    def __str__(self):
+        return self.name
 
 # Note sur le monument
 # Note est la table intermédiaire pour la relation Many to Many entre les utilisateurs et les monuments
@@ -72,3 +83,6 @@ class Note(models.Model):
                              on_delete=models.SET_NULL)  # si on détruit l'utilisateur, set la FK user à null
     monument = models.ForeignKey(Monument, blank=False, null=True,
                                  on_delete=models.CASCADE)  # si on détruit le monument on supprime la note
+
+    def __str__(self):
+        return self.note
