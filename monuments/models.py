@@ -36,7 +36,7 @@ class City(models.Model):
     def retrieve_weather(self):
         weather = Weather.objects.filter(city=self)
         if len(weather) < 1:
-            return weather[0]
+            return weather
         else:
             return weather[len(weather) - 1]
 
