@@ -93,7 +93,7 @@ def user(request):
 @csrf_exempt
 @require_http_methods(["DELETE", "GET"])
 @api_view(["DELETE", "GET"])
-def user_pk(request, pk=None):
+def user_pk(request, pk):
     """
         delete:
             Permet de supprimer un utilisateur
@@ -204,7 +204,7 @@ def note(request):
 @csrf_exempt
 @api_view(["DELETE", "GET"])
 @require_http_methods(["DELETE", "GET"])
-def note_pk(request, id=None):
+def note_pk(request, id):
     """
         get:
             Permet de créer une note
@@ -347,7 +347,7 @@ def monument(request):
 @csrf_exempt
 @api_view(["DELETE", "GET"])
 @require_http_methods(["DELETE", "GET"])
-def monument_pk(request, id=None):
+def monument_pk(request, id):
     """
         delete:
             Permet de supprimer un monument
@@ -436,7 +436,7 @@ def address(request):
 @csrf_exempt
 @api_view(["DELETE", "GET"])
 @require_http_methods(["DELETE", "GET"])
-def address_pk(request, id=None):
+def address_pk(request, id):
     """
         delete:
             Permet de supprimer une addresse
@@ -517,7 +517,7 @@ def city(request):
 @csrf_exempt
 @api_view(["DELETE", "GET"])
 @require_http_methods(["DELETE", "GET"])
-def city_pk(request, id=None):
+def city_pk(request, id):
     """
         delete:
             Permet de supprimer une city
