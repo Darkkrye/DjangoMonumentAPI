@@ -16,14 +16,14 @@ class PersonPostSerializer(serializers.ModelSerializer):
 class WeatherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weather
-        fields = ('main', 'description', 'humidity', 'temp_min', 'temp_max', 'visibility', 'wind_speed')
+        fields = ('id', 'main', 'description', 'humidity', 'temp_min', 'temp_max', 'visibility', 'wind_speed')
 
 class CitySerializer(serializers.ModelSerializer):
     weather = WeatherSerializer(source='retrieve_weather', many=False)
 
     class Meta:
         model = City
-        fields = ('zip_code', 'city_name', 'weather')
+        fields = ('id', 'zip_code', 'city_name', 'weather')
 
 class CityPostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,13 +56,13 @@ class NoteSerializer(serializers.ModelSerializer):
 class PersonSerializerForMonument(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email')
 
 class NoteSerializerForMonument(serializers.ModelSerializer):
     user = PersonSerializerForMonument(many=False)
     class Meta:
         model = Note
-        fields = ('note', 'user')
+        fields = ('id', 'note', 'user')
 
 class MonumentSerializer(serializers.ModelSerializer):
     address = AddressSerializer(many=False)
@@ -70,4 +70,4 @@ class MonumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Monument
-        fields = ('name', 'address', 'notes')
+        fields = ('id', 'name', 'address', 'notes')
