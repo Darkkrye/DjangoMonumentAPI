@@ -154,14 +154,10 @@ def note(request):
     # Gestion de la méthode GET
     #
     if request.method == 'GET':
-        if id is None:
-            notes = Note.objects.all()
-            ns = NoteSerializer(notes, many=True)
-            return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
-        else:
-            notes = Note.objects.get(id=id)
-            ns = NoteSerializer(notes, many=False)
-            return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
+        notes = Note.objects.all()
+        ns = NoteSerializer(notes, many=True)
+        return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
+
     #
     # Gestion de la méthode GET
     #
