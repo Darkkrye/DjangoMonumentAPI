@@ -54,8 +54,8 @@ def user(request):
     if request.method == 'GET':
 
         if is_token_valid is True:
-            users = Person.objects.get(pk=pk)
-            us = PersonSerializer(users, many=False)
+            users = Person.objects.all()
+            us = PersonSerializer(users, many=True)
             return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
