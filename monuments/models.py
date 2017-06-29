@@ -35,7 +35,10 @@ class City(models.Model):
 
     def retrieve_weather(self):
         weather = Weather.objects.filter(city=self)
-        return weather[len(weather) - 1]
+        if len(weather) < 1:
+            return weather[0]
+        else:
+            return weather[len(weather) - 1]
 
     def __str__(self):
         return str(self.zip_code) + " " + self.city_name
