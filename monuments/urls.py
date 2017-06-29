@@ -24,7 +24,7 @@ urlpatterns = [
 
     # Cities routes
     url(r'^city$', views.city, name='city'),
-    url(r'^city/(?P<id>\d+)$', views.city, name='city_id'),
+    url(r'^city/(?P<id>\d+)$', views.city_pk, name='city_id'),
 
     # Login routes
     url(r'^login$', views.login, name='login'),

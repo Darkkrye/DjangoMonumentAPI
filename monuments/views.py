@@ -452,29 +452,25 @@ def address(request, id=None):
 # GESTION DES CITY
 #
 @csrf_exempt
-@api_view(["DELETE", "POST", "GET"])
-@require_http_methods(["DELETE", "POST", "GET"])
-def city(request, id=None):
+@api_view(["POST", "GET"])
+@require_http_methods(["POST", "GET"])
+def city(request):
     """
         post:
             Permet de créer une city
-        delete:
-            Permet de supprimer une city
         get:
-            Permet de récupérer une ou plusieurs city
+            Permet de récupérer une liste de city
     """
+    #
+    # Gestion de la méthode GET
+    #
+    if request.method == 'GET':
+        cities = City.objects.all()
+        cs = CitySerializer(cities, many=True)
+        return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
     #
     # Gestion de la méthode POST
     #
-    if request.method == 'GET':
-        if id == None:
-            cities = City.objects.all()
-            cs = CitySerializer(cities, many=True)
-            return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
-        else:
-            cities = City.objects.get(id=id)
-            cs = CitySerializer(cities, many=False)
-            return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
     elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
@@ -492,6 +488,30 @@ def city(request, id=None):
             return JsonResponse(city_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return JsonResponse(city_serializer.data, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+#
+# GESTION DES CITY
+#
+@csrf_exempt
+@api_view(["DELETE", "GET"])
+@require_http_methods(["DELETE", "GET"])
+def city_pk(request, id=None):
+    """
+        delete:
+            Permet de supprimer une city
+        get:
+            Permet de récupérer une city
+    """
+    #
+    # Gestion de la méthode POST
+    #
+    if request.method == 'GET':
+        cities = City.objects.get(id=id)
+        cs = CitySerializer(cities, many=False)
+        return JsonResponse(cs.data, safe=False, status=status.HTTP_200_OK)
+
     #
     # Gestion de la méthode DELETE
     #
