@@ -347,7 +347,7 @@ def monument(request):
 @csrf_exempt
 @api_view(["DELETE", "GET"])
 @require_http_methods(["DELETE", "GET"])
-def monument_pk(request):
+def monument_pk(request, id=None):
     """
         delete:
             Permet de supprimer un monument
