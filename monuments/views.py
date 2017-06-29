@@ -162,6 +162,9 @@ def note(request):
             notes = Note.objects.get(id=id)
             ns = NoteSerializer(notes, many=False)
             return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
+    #
+    # Gestion de la méthode GET
+    #
     elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:

@@ -8,328 +8,392 @@
 	},
 	"item": [
 		{
-			"name": "post user",
-			"request": {
-				"url": "{{url}}/api/user",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+			"name": "address",
+			"description": "",
+			"item": [
+				{
+					"name": "address",
+					"request": {
+						"url": "{{url}}/api/address",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"first_name\": \"Test2\",\n\t\"last_name\": \"Test2\", \n\t\"username\": \"test2\",\n\t\"email\": \"test2@gmail.com\",\n\t\"password\": \"test2\"\n}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "users",
-			"request": {
-				"url": "{{url}}/api/user",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Basic {{token}}",
+				{
+					"name": "address/1",
+					"request": {
+						"url": "{{url}}/api/address/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
+						},
 						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "users/1",
-			"request": {
-				"url": "{{url}}/api/user/1",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Basic {{token}}",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "user",
-			"request": {
-				"url": "{{url}}/api/user/17",
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
+				{
+					"name": "address",
+					"request": {
+						"url": "{{url}}/api/address",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "address",
+					"request": {
+						"url": "{{url}}/api/address/9",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "city",
-			"request": {
-				"url": "{{url}}/api/city",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+			"description": "",
+			"item": [
+				{
+					"name": "city",
+					"request": {
+						"url": "{{url}}/api/city",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "city/1",
-			"request": {
-				"url": "{{url}}/api/city/1",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+				{
+					"name": "city/1",
+					"request": {
+						"url": "{{url}}/api/city/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "city",
-			"request": {
-				"url": "{{url}}/api/city",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+				{
+					"name": "city",
+					"request": {
+						"url": "{{url}}/api/city",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "city",
-			"request": {
-				"url": "{{url}}/api/city/9",
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "address",
-			"request": {
-				"url": "{{url}}/api/address",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+				{
+					"name": "city",
+					"request": {
+						"url": "{{url}}/api/city/9",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "address/1",
-			"request": {
-				"url": "{{url}}/api/address/1",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "address",
-			"request": {
-				"url": "{{url}}/api/address",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "address",
-			"request": {
-				"url": "{{url}}/api/address/9",
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "monument",
-			"request": {
-				"url": "{{url}}/api/monument",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+			"description": "",
+			"item": [
+				{
+					"name": "monument",
+					"request": {
+						"url": "{{url}}/api/monument",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Test\", \n\t\"address\": 10\n}"
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Test\", \n\t\"address\": 10\n}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "monument",
-			"request": {
-				"url": "{{url}}/api/monument",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+				{
+					"name": "monument",
+					"request": {
+						"url": "{{url}}/api/monument",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"note\": \"Bof\",\n\t\"user\": 1, \n\t\"monument\": 2\n}"
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"note\": \"Bof\",\n\t\"user\": 1, \n\t\"monument\": 2\n}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "monument/1",
-			"request": {
-				"url": "{{url}}/api/monument/1",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+				{
+					"name": "monument/1",
+					"request": {
+						"url": "{{url}}/api/monument/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"note\": \"Bof\",\n\t\"user\": 1, \n\t\"monument\": 2\n}"
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"note\": \"Bof\",\n\t\"user\": 1, \n\t\"monument\": 2\n}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "monument",
-			"request": {
-				"url": "{{url}}/api/monument/10",
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "monument",
-			"request": {
-				"url": "{{url}}/api/note",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+				{
+					"name": "monument",
+					"request": {
+						"url": "{{url}}/api/monument/10",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"note\": \"Bof\",\n\t\"user\": 1, \n\t\"monument\": 2\n}"
-				},
-				"description": ""
-			},
-			"response": []
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "note",
-			"request": {
-				"url": "{{url}}/api/note/4",
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+			"description": "",
+			"item": [
+				{
+					"name": "note",
+					"request": {
+						"url": "{{url}}/api/note/4",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
+				{
+					"name": "note/1",
+					"request": {
+						"url": "{{url}}/api/note/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "note",
+					"request": {
+						"url": "{{url}}/api/note",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "note",
+					"request": {
+						"url": "{{url}}/api/monument",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"note\": \"Coucou\", \n\t\"monument\": 7,\n\t\"user\": 1\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"description": "",
+			"item": [
+				{
+					"name": "post user",
+					"request": {
+						"url": "{{url}}/api/user",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\": \"Test2\",\n\t\"last_name\": \"Test2\", \n\t\"username\": \"test2\",\n\t\"email\": \"test2@gmail.com\",\n\t\"password\": \"test2\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "users",
+					"request": {
+						"url": "{{url}}/api/user",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "users/1",
+					"request": {
+						"url": "{{url}}/api/user/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"url": "{{url}}/api/user/17",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "login_get_token",
@@ -353,26 +417,6 @@
 					}
 				],
 				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "login_get_token copy",
-			"request": {
-				"url": "{{url}}/api/login",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Basic dGVzdDp0ZXN0",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"description": ""
 			},
 			"response": []
