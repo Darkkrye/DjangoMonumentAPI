@@ -8,11 +8,11 @@ schema_view = get_swagger_view(title='Monuments API')
 urlpatterns = [
     # Users routes
     url(r'^user$', views.user, name='user'),
-    url(r'^user/(?P<pk>\d+)$', views.user, name='user_pk'),
+    url(r'^user/(?P<pk>\d+)$', views.user_pk, name='user'),
 
     # Notes routes
     url(r'^note$', views.note, name='note'),
-    url(r'^note/(?P<id>\d+)$', views.note, name='note_id'),
+    url(r'^note/(?P<id>\d+)$', views.note_pk, name='note_id'),
 
     # Monuments routes
     url(r'^monument$', views.monument, name='monument'),

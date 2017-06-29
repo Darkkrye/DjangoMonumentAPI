@@ -39,39 +39,26 @@ def login(request):
 #
 # GESTION DES USERS
 #
-
 # @csrf_exempt : use without token
 @csrf_exempt
-@require_http_methods(["DELETE", "POST", "GET"])
-@api_view(["DELETE", "POST", "GET"])
-def user(request, pk=None):
+@require_http_methods(["GET", "POST"])
+@api_view(["GET", "POST"])
+def user(request):
     """
         post:
             Permet de créer un utilisateur
-        delete:
-            Permet de supprimer un utilisateur
         get:
-            Permet de récupérer un ou plusieurs utilisateur
+            Permet de récupérer une liste d'utilisateur
     """
-    #
-    # Gestion de la méthode POST
-    #
+    is_token_valid = check_request_token(request)
     if request.method == 'GET':
 
-        is_token_valid = check_request_token(request)
-
         if is_token_valid is True:
-            if pk is None:
-                users = Person.objects.all()
-                us = PersonSerializer(users, many=True)
-                return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
-            else:
-                users = Person.objects.get(pk=pk)
-                us = PersonSerializer(users, many=False)
-                return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
+            users = Person.objects.get(pk=pk)
+            us = PersonSerializer(users, many=False)
+            return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
-
     elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
@@ -102,6 +89,34 @@ def user(request, pk=None):
         else:
             return JsonResponse(user_post_serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
+# @csrf_exempt : use without token
+@csrf_exempt
+@require_http_methods(["DELETE", "GET"])
+@api_view(["DELETE", "GET"])
+def user_pk(request, pk=None):
+    """
+        delete:
+            Permet de supprimer un utilisateur
+        get:
+            Permet de récupérer un utilisateur
+    """
+    #
+    # Gestion de la méthode POST
+    #
+    if request.method == 'GET':
+        is_token_valid = check_request_token(request)
+
+        if is_token_valid is True:
+            if pk is None:
+                users = Person.objects.all()
+                us = PersonSerializer(users, many=True)
+                return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
+            else:
+                users = Person.objects.get(pk=pk)
+                us = PersonSerializer(users, many=False)
+                return JsonResponse(us.data, safe=False, status=status.HTTP_200_OK)
+        else:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
     #
     # Gestion de la méthode DELETE
     #
@@ -126,19 +141,17 @@ def user(request, pk=None):
 # GESTION DES NOTES
 #
 @csrf_exempt
-@api_view(["DELETE", "POST", "GET"])
-@require_http_methods(["DELETE", "POST", "GET"])
-def note(request, id=None):
+@api_view(["POST", "GET"])
+@require_http_methods(["POST", "GET"])
+def note(request):
     """
         post:
             Permet de créer une note
-        delete:
-            Permet de supprimer une note
         get:
-            Permet de récupérer une ou plusieurs note
+            Permet de récupérer une liste de notes
     """
     #
-    # Gestion de la méthode POST
+    # Gestion de la méthode GET
     #
     if request.method == 'GET':
         if id is None:
@@ -185,7 +198,45 @@ def note(request, id=None):
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+#
+# GESTION DES NOTES
+#
+@csrf_exempt
+@api_view(["DELETE", "GET"])
+@require_http_methods(["DELETE", "GET"])
+def note_pk(request, id=None):
+    """
+        get:
+            Permet de créer une note
+        delete:
+            Permet de supprimer une note
+    """
+    #
+    # Gestion de la méthode POST
+    #
+    if request.method == 'GET':
 
+        notes = Note.objects.get(id=id)
+        ns = NoteSerializer(notes, many=False)
+        return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
+    #
+    # Gestion de la méthode DELETE
+    #
+    elif request.method == 'DELETE':
+        # étant donné que l'on peut ne pas avoir de pk (paramètre facultatif) on fait un try / catch
+        try:
+            note_delete = Note.objects.get(pk=id)
+        except:
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+        note_delete.delete()
+
+        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
+    #
+    # Cas impossible normalement avec le decorator
+    #
+    else:
+        return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 #
 # GESTION DES MONUMENTS
 # ATTENTION LA RELATION ENTRE LES MONUMENT ET LES ADDRESS EST UNE RELATION ONE TO ONE DONC SI L'ADDRESSE EST DEJA
