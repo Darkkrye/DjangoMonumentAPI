@@ -32,7 +32,7 @@ def login(request):
             print("user")
             token = get_or_create_token(user)
             return JsonResponse(data={
-                'token': token.hash,'created_time': token.expiration_date})
+                'token': token.hash, 'created_time': token.expiration_date})
     return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -42,8 +42,8 @@ def login(request):
 
 # @csrf_exempt : use without token
 @csrf_exempt
-@api_view(["DELETE", "POST", "GET"])
 @require_http_methods(["DELETE", "POST", "GET"])
+@api_view(["DELETE", "POST", "GET"])
 def user(request, pk=None):
     """
         post:
@@ -141,7 +141,7 @@ def note(request, id=None):
     # Gestion de la méthode POST
     #
     if request.method == 'GET':
-        if id == None:
+        if id is None:
             notes = Note.objects.all()
             ns = NoteSerializer(notes, many=True)
             return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
