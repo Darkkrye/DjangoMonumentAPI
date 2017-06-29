@@ -50,8 +50,9 @@ def user(request):
         get:
             Permet de récupérer une liste d'utilisateur
     """
-    is_token_valid = check_request_token(request)
+
     if request.method == 'GET':
+        is_token_valid = check_request_token(request)
 
         if is_token_valid is True:
             users = Person.objects.all()
@@ -60,18 +61,21 @@ def user(request):
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
     elif request.method == 'POST':
+        print("test")
         # réception des données postées par l'utilisateur
         try:
+            print("test2")
             data = JSONParser().parse(request)
         except ParseError:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
-
+        print("test3")
         # désérialisations
         user_post_serializer = PersonPostSerializer(data=data)
+        print("test4")
 
         # Si on a unutilisateur valide, on l'enregistre
         if user_post_serializer.is_valid():
-
+            print("test5")
             # ici vu qu'on va créer un utilisateur et qu'on souhaite hashé son mot de passe
             # on va utiliser  create_user, donc pas de save immédiatement
             new_user = User.objects.create_user(
@@ -87,7 +91,7 @@ def user(request):
 
             return JsonResponse(user_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(user_post_serializer.data, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(user_post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # @csrf_exempt : use without token
 @csrf_exempt
@@ -159,7 +163,7 @@ def note(request):
         return JsonResponse(ns.data, safe=False, status=status.HTTP_200_OK)
 
     #
-    # Gestion de la méthode GET
+    # Gestion de la méthode POST
     #
     elif request.method == 'POST':
         # réception des données postées par l'utilisateur
