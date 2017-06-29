@@ -61,21 +61,17 @@ def user(request):
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
     elif request.method == 'POST':
-        print("test")
         # réception des données postées par l'utilisateur
         try:
-            print("test2")
             data = JSONParser().parse(request)
         except ParseError:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
-        print("test3")
+
         # désérialisations
         user_post_serializer = PersonPostSerializer(data=data)
-        print("test4")
 
         # Si on a unutilisateur valide, on l'enregistre
         if user_post_serializer.is_valid():
-            print("test5")
             # ici vu qu'on va créer un utilisateur et qu'on souhaite hashé son mot de passe
             # on va utiliser  create_user, donc pas de save immédiatement
             new_user = User.objects.create_user(
@@ -181,7 +177,7 @@ def note(request):
 
             return JsonResponse(note_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(note_serializer.data, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(note_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     #
     # Gestion de la méthode DELETE
     #
@@ -334,7 +330,7 @@ def monument(request):
 
             return JsonResponse(monument_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(monument_serializer.data, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(monument_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     #
     # Cas impossible normalement avec le decorator
@@ -426,7 +422,7 @@ def address(request):
 
             return JsonResponse(address_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(address_serializer.data, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(address_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     #
     # Cas impossible normalement avec le decorator
     #
@@ -510,7 +506,7 @@ def city(request):
 
             return JsonResponse(city_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(city_serializer.data, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(city_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
