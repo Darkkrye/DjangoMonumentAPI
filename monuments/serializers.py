@@ -49,6 +49,10 @@ class NoteSerializer(serializers.ModelSerializer):
         model = Note
         fields = ('id', 'note', 'user', 'monument')
 
+class MonumentPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Monument
+        fields = ('id', 'name', 'address')
 
 
 

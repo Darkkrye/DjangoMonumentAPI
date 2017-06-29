@@ -322,7 +322,7 @@ def monument(request):
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
         # désérialisations
-        monument_serializer = MonumentSerializer(data=data)
+        monument_serializer = MonumentPostSerializer(data=data)
 
         # Si on a une monument valide, on l'enregistre
         if monument_serializer.is_valid():

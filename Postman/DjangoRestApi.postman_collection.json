@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "DjangoRestApi",
-		"_postman_id": "0aa58932-49da-5286-f274-598cd330952a",
+		"_postman_id": "1df1ee96-a6ac-0e86-95ba-329765b2ec28",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -34,7 +34,7 @@
 				{
 					"name": "address/1",
 					"request": {
-						"url": "{{url}}/api/address/1",
+						"url": "{{url}}/api/address/11",
 						"method": "GET",
 						"header": [
 							{
@@ -65,7 +65,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"address_1\": \"12 rue du test\",\n\t\"address_2\": \"\",\n\t\"city\": 1\n}"
+							"raw": "{\n\t\"address_1\": \"12 rue du testeeeeeeee\",\n\t\"address_2\": \"testeee\",\n\t\"city\": 1\n}"
 						},
 						"description": ""
 					},
@@ -114,7 +114,7 @@
 				{
 					"name": "city/1",
 					"request": {
-						"url": "{{url}}/api/city/1",
+						"url": "{{url}}/api/city/12",
 						"method": "GET",
 						"header": [
 							{
@@ -145,7 +145,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"zip_code\": 45000,\n\t\"city_name\": \"Orléans\"\n}"
+							"raw": "{\n\t\"zip_code\": 76000,\n\t\"city_name\": \"Rouen\"\n}"
 						},
 						"description": ""
 					},
@@ -185,7 +185,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Test\", \n\t\"address\": 10\n}"
+							"raw": "{\n\t\"name\": \"Testeeeeee\", \n\t\"address\": 13\n}"
 						},
 						"description": ""
 					},
@@ -254,7 +254,7 @@
 				{
 					"name": "note",
 					"request": {
-						"url": "{{url}}/api/note/4",
+						"url": "{{url}}/api/note/6",
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -277,7 +277,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -294,7 +297,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -302,7 +308,7 @@
 				{
 					"name": "note",
 					"request": {
-						"url": "{{url}}/api/monument",
+						"url": "{{url}}/api/note",
 						"method": "POST",
 						"header": [
 							{
@@ -313,7 +319,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"note\": \"Coucou\", \n\t\"monument\": 7,\n\t\"user\": 1\n}"
+							"raw": "{\n\t\"note\": \"Coucouuuu\", \n\t\"monument\": 7,\n\t\"user\": 1\n}"
 						},
 						"description": ""
 					},
@@ -357,7 +363,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -374,7 +383,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -382,7 +394,7 @@
 				{
 					"name": "user",
 					"request": {
-						"url": "{{url}}/api/user/17",
+						"url": "{{url}}/api/user/29",
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -416,7 +428,10 @@
 						"description": ""
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
