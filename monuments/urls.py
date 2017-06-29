@@ -16,7 +16,7 @@ urlpatterns = [
 
     # Monuments routes
     url(r'^monument$', views.monument, name='monument'),
-    url(r'^monument/(?P<id>\d+)$', views.monument, name='monument_id'),
+    url(r'^monument/(?P<id>\d+)$', views.monument_pk, name='monument_id'),
 
     # Addresses routes
     url(r'^address$', views.address, name='address'),

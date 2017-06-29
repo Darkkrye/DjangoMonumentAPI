@@ -243,16 +243,14 @@ def note_pk(request, id=None):
 # UTILISEE, CA PLANTE
 #
 @csrf_exempt
-@api_view(["DELETE", "POST", "GET"])
-@require_http_methods(["DELETE", "POST", "GET"])
-def monument(request, id=None):
+@api_view(["POST", "GET"])
+@require_http_methods(["POST", "GET"])
+def monument(request):
     """
         post:
             Permet de créer un monument
-        delete:
-            Permet de supprimer un monument
         get:
-            Permet de récupérer un ou plusieurs monument
+            Permet de récupérer une liste de monuments
     """
     #
     # Gestion de la méthode POST
@@ -263,65 +261,60 @@ def monument(request, id=None):
         for m in monuments:
             getWeatherByCity(m.address.city.city_name, m.address.city.pk)
 
-        if id == None:
-            limit = request.GET.get('limit')
-            offset = request.GET.get('offset')
-            page = request.GET.get('page')
+        limit = request.GET.get('limit')
+        offset = request.GET.get('offset')
+        page = request.GET.get('page')
 
-            if limit or offset or page != None:
-                # Set default values
-                if limit != None and int(limit) == 1:
-                    limit = 2
-                if limit == None:
-                    limit = 100
-                if offset == None:
-                    offset = 0
-                if page == None:
-                    page = 1
-                if int(page) > 1:
-                    offset = 1
+        if limit or offset or page != None:
+            # Set default values
+            if limit != None and int(limit) == 1:
+                limit = 2
+            if limit == None:
+                limit = 100
+            if offset == None:
+                offset = 0
+            if page == None:
+                page = 1
+            if int(page) > 1:
+                offset = 1
 
-                # Force int for values
-                limit = int(limit)
-                offset = int(offset)
-                page = int(page)
+            # Force int for values
+            limit = int(limit)
+            offset = int(offset)
+            page = int(page)
 
-                # Calculate Page Offset and End Item
-                pageOffset = page * offset
-                endItem = pageOffset + limit
+            # Calculate Page Offset and End Item
+            pageOffset = page * offset
+            endItem = pageOffset + limit
 
-                # Retrieve monuments
-                newMonuments = monuments[pageOffset:endItem]
+            # Retrieve monuments
+            newMonuments = monuments[pageOffset:endItem]
 
-                # Create monuments json
-                monuments_serializer = MonumentSerializer(newMonuments, many=True)
+            # Create monuments json
+            monuments_serializer = MonumentSerializer(newMonuments, many=True)
 
-                # Create return
-                if page == 1 or page == 0:
-                    previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(
-                        len(newMonuments)) + "&page=" + str(1)
-                else:
-                    previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(
-                        len(newMonuments)) + "&page=" + str(page - 1)
-
-                content = {
-                    "count": len(newMonuments),
-                    "next": "http://" + request.get_host() + request.path_info + "?limit=" + str(
-                        len(newMonuments)) + "&page=" + str(page + 1),
-                    "previous": previous,
-                    "results": monuments_serializer.data
-                }
-
-                # Send return
-                return JsonResponse(content, safe=False, status=status.HTTP_200_OK)
+            # Create return
+            if page == 1 or page == 0:
+                previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(
+                    len(newMonuments)) + "&page=" + str(1)
             else:
-                monuments_serializer = MonumentSerializer(monuments, many=True)
-                return JsonResponse(monuments_serializer.data, safe=False, status=status.HTTP_200_OK)
+                previous = "http://" + request.get_host() + request.path_info + "?limit=" + str(
+                    len(newMonuments)) + "&page=" + str(page - 1)
+
+            content = {
+                "count": len(newMonuments),
+                "next": "http://" + request.get_host() + request.path_info + "?limit=" + str(
+                    len(newMonuments)) + "&page=" + str(page + 1),
+                "previous": previous,
+                "results": monuments_serializer.data
+            }
+
+            # Send return
+            return JsonResponse(content, safe=False, status=status.HTTP_200_OK)
         else:
-            monument = Monument.objects.get(id=id)
-            getWeatherByCity(monument.address.city.city_name, monument.address.city.pk)
-            monument_serializer = MonumentSerializer(monument, many=False)
-            return JsonResponse(monument_serializer.data, safe=False, status=status.HTTP_200_OK)
+            monuments_serializer = MonumentSerializer(monuments, many=True)
+            return JsonResponse(monuments_serializer.data, safe=False, status=status.HTTP_200_OK)
+
     elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
@@ -339,6 +332,39 @@ def monument(request, id=None):
             return JsonResponse(monument_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return JsonResponse(monument_serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+    #
+    # Cas impossible normalement avec le decorator
+    #
+    else:
+        return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+#
+# GESTION DES MONUMENTS
+# ATTENTION LA RELATION ENTRE LES MONUMENT ET LES ADDRESS EST UNE RELATION ONE TO ONE DONC SI L'ADDRESSE EST DEJA
+# UTILISEE, CA PLANTE
+#
+@csrf_exempt
+@api_view(["DELETE", "GET"])
+@require_http_methods(["DELETE", "GET"])
+def monument_pk(request):
+    """
+        delete:
+            Permet de supprimer un monument
+        get:
+            Permet de récupérer un monument
+    """
+    #
+    # Gestion de la méthode POST
+    #
+    if request.method == 'GET':
+        monuments = Monument.objects.all()
+
+        monument = Monument.objects.get(id=id)
+        getWeatherByCity(monument.address.city.city_name, monument.address.city.pk)
+        monument_serializer = MonumentSerializer(monument, many=False)
+        return JsonResponse(monument_serializer.data, safe=False, status=status.HTTP_200_OK)
+
     #
     # Gestion de la méthode DELETE
     #
@@ -357,7 +383,6 @@ def monument(request, id=None):
     #
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
 
 #
 # GESTION DES ADDRESS
