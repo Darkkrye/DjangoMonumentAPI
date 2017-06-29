@@ -388,29 +388,25 @@ def monument_pk(request):
 # GESTION DES ADDRESS
 #
 @csrf_exempt
-@api_view(["DELETE", "POST", "GET"])
-@require_http_methods(["DELETE", "POST", "GET"])
-def address(request, id=None):
+@api_view(["POST", "GET"])
+@require_http_methods(["POST", "GET"])
+def address(request):
     """
         post:
             Permet de créer une addresse
-        delete:
-            Permet de supprimer une addresse
         get:
-            Permet de récupérer une ou plusieurs addresse
+            Permet de récupérer la liste des addresses
     """
+    #
+    # Gestion de la méthode GET
+    #
+    if request.method == 'GET':
+        addresses = Address.objects.all()
+        addresses_serializer = AddressSerializer(addresses, many=True)
+        return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
     #
     # Gestion de la méthode POST
     #
-    if request.method == 'GET':
-        if id == None:
-            addresses = Address.objects.all()
-            addresses_serializer = AddressSerializer(addresses, many=True)
-            return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
-        else:
-            addresses = Address.objects.get(id=id)
-            addresses_serializer = AddressSerializer(addresses, many=False)
-            return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
     elif request.method == 'POST':
         # réception des données postées par l'utilisateur
         try:
@@ -429,6 +425,32 @@ def address(request, id=None):
         else:
             return JsonResponse(address_serializer.data, status=status.HTTP_400_BAD_REQUEST)
     #
+    # Cas impossible normalement avec le decorator
+    #
+    else:
+        return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+#
+# GESTION DES ADDRESSES
+#
+@csrf_exempt
+@api_view(["DELETE", "GET"])
+@require_http_methods(["DELETE", "GET"])
+def address_pk(request, id=None):
+    """
+        delete:
+            Permet de supprimer une addresse
+        get:
+            Permet de récupérer une addresse
+    """
+    #
+    # Gestion de la méthode GET
+    #
+    if request.method == 'GET':
+        addresses = Address.objects.get(id=id)
+        addresses_serializer = AddressSerializer(addresses, many=False)
+        return JsonResponse(addresses_serializer.data, safe=False, status=status.HTTP_200_OK)
+    #
     # Gestion de la méthode DELETE
     #
     elif request.method == 'DELETE':
@@ -446,8 +468,6 @@ def address(request, id=None):
     #
     else:
         return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-
 #
 # GESTION DES CITY
 #

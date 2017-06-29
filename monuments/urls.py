@@ -20,7 +20,7 @@ urlpatterns = [
 
     # Addresses routes
     url(r'^address$', views.address, name='address'),
-    url(r'^address/(?P<id>\d+)$', views.address, name='address_id'),
+    url(r'^address/(?P<id>\d+)$', views.address_pk, name='address_id'),
 
     # Cities routes
     url(r'^city$', views.city, name='city'),
