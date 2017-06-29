@@ -25,10 +25,20 @@ class CitySerializer(serializers.ModelSerializer):
         model = City
         fields = ('zip_code', 'city_name', 'weather')
 
+class CityPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ('id', 'zip_code', 'city_name')
+
 
 class AddressSerializer(serializers.ModelSerializer):
     city = CitySerializer(many=False)
 
+    class Meta:
+        model = Address
+        fields = ('id', 'address_1', 'address_2', 'city')
+
+class AddressPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = ('id', 'address_1', 'address_2', 'city')

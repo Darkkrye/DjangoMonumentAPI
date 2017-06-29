@@ -414,7 +414,7 @@ def address(request):
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
         # désérialisations
-        address_serializer = AddressSerializer(data=data)
+        address_serializer = AddressPostSerializer(data=data)
 
         # Si on a une address valide, on l'enregistre
         if address_serializer.is_valid():
@@ -498,7 +498,7 @@ def city(request):
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
         # désérialisations
-        city_serializer = CitySerializer(data=data)
+        city_serializer = CityPostSerializer(data=data)
 
         # Si on a une city valide, on l'enregistre
         if city_serializer.is_valid():
