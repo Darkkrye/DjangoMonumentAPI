@@ -52,7 +52,7 @@ class Weather(models.Model):
     wind_speed = models.CharField(max_length=200, blank=True, null=True)
     main = models.CharField(max_length=200, blank=True, null=True)
     description = models.CharField(max_length=200, blank=True, null=True)
-    city = models.ForeignKey(City, blank=True, null=True)
+    city = models.ForeignKey(City, blank=True, null=True)#, related_name='Weather')
 
 
 # Address

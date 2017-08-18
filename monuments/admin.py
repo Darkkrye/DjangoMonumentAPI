@@ -12,4 +12,4 @@ admin.site.register(City)
 admin.site.register(Address)
 admin.site.register(Monument)
 admin.site.register(Note)
-
+admin.site.register(Weather)
